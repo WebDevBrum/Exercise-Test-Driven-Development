@@ -8,7 +8,16 @@ import axios from 'axios';
  */
 
 /** Create getCountry Function here */
-
+async function getCountry(country: string) {
+  const getApi = await axios(`https://restcountries.eu/rest/v2/name/${country}`);
+  const data = getApi.data;
+  const countryData = {
+    capital: data[0].capital,
+    region: data[0].region,
+    numericCode: data[0].numericCode
+  }
+  return countryData;
+}
 
 /** Create a test for this getRegion function */
 async function getRegionCountries(regionalbloc: string) {
@@ -24,6 +33,19 @@ async function getRegionCountries(regionalbloc: string) {
 }
 
 /** Create getRegionCapitals function here */
+
+async function getRegionCapitals(regionalbloc: string) {
+  const getApi = await axios(
+    `https://restcountries.eu/rest/v2/regionalbloc/${regionalbloc}`
+  );
+  const data = getApi.data;
+  const capitals = [];
+  for (let i = 0; i < data.length; i++) {
+    capitals.push(data[i].capital);
+  }
+  return capitals;
+
+}
 
 
 export default {
